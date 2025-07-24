@@ -1,0 +1,257 @@
+/* ------------------------------------ */
+/* 1. CSSリセット (ブラウザのデフォルトスタイルを統一) */
+/* ------------------------------------ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;           /* 外側の余白を0にリセット */
+    padding: 0;          /* 内側の余白を0にリセット */
+    border: 0;           /* ボーダーを0にリセット */
+    font-size: 100%;     /* フォントサイズを親要素の100%に設定 */
+    font: inherit;       /* フォント関連のプロパティを親要素から継承 */
+    vertical-align: baseline; /* 垂直方向の配置をベースラインに設定 */
+}
+
+/* HTML5で導入された新しいセマンティック要素（例: <article>, <aside>）に対して、
+   古いブラウザでもブロック要素として認識されるように指定します。 */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block; /* これらの要素をブロック要素として表示 */
+}
+
+/* body要素の行の高さを1に設定し、テキストのデフォルト行間を調整します。 */
+body {
+    line-height: 1;
+}
+
+/* ol（順序付きリスト）とul（順序なしリスト）のリストスタイル（黒点や数字）をリセットします。 */
+ol, ul {
+    list-style: none; /* リストのマーカー（黒点や数字）を非表示にする */
+}
+
+/* blockquoteとq（引用要素）のデフォルトの引用符をリセットします。 */
+blockquote, q {
+    quotes: none; /* 引用符を非表示にする */
+}
+
+/* blockquoteとqのbefore/after疑似要素に生成されるデフォルトの引用符をリセットします。 */
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';     /* コンテンツを空にする */
+    content: none;   /* コンテンツを非表示にする */
+}
+
+/* table要素のボーダーとセル間の間隔をリセットし、テーブルのスタイルを統一します。 */
+table {
+    border-collapse: collapse; /* テーブルのボーダーを結合する */
+    border-spacing: 0;         /* セル間の間隔を0にする */
+}
+
+/* すべての要素に対して、box-sizingプロパティをborder-boxに設定します。
+   これにより、widthとheightの計算にpaddingとborderが含まれるようになり、
+   レイアウトの計算が直感的になり、要素が意図せずはみ出すのを防ぎます。 */
+* {
+    box-sizing: border-box; /* paddingとborderを要素のwidth/heightの計算に含める */
+}
+
+/* ------------------------------------ */
+/* 2. 基本スタイル & フォント設定 */
+/* ------------------------------------ */
+body {
+    /* フォント設定: 日本語は'Noto Sans JP'、それ以外は'Roboto'、どちらもなければOSのデフォルトのsans-serifフォントを使用 */
+    font-family: 'Noto Sans JP', 'Roboto', sans-serif; 
+    background-color: #f8f0f0; /* 全体の背景色を薄いベージュ系に設定 */
+    color: #333; /* デフォルトの文字色を濃いグレーに設定 */
+    min-height: 100vh; /* bodyの最小高さをビューポートの高さの100%に設定（コンテンツが少なくても画面全体を占める） */
+    display: flex; /* bodyをフレックスコンテナにする */
+    flex-direction: column; /* bodyの子要素（header, main, footer）を縦方向に並べる */
+    align-items: center; /* bodyの子要素を交差軸（横方向）の中央に揃える */
+    /* ヘッダーがあるため、justify-contentはmainに任せるか、bodyでは不要になることが多い */
+}
+
+/* ------------------------------------ */
+/* 3. ヘッダーのスタイル */
+/* ------------------------------------ */
+.main-header {
+    width: 100%; /* ヘッダーの幅を親要素（body）の100%に設定 */
+    padding: 40px 20px; /* 内側の余白: 上下40px, 左右20px */
+    text-align: center; /* ヘッダー内のテキストを中央揃えにする */
+    background-color: #ffffff; /* ヘッダーの背景色を白に設定 */
+    border-bottom: 1px solid #e0e0e0; /* 下部に1pxの薄いグレーの線を追加 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* ヘッダーの周囲に影を追加 (水平オフセット0, 垂直オフセット4px, ぼかし10px, 黒の5%透明度) */
+    position: sticky; /* スクロールしてもヘッダーが特定の場所に固定されるようにする */
+    top: 0; /* 固定された際に、ビューポートの上端から0pxの位置に固定される */
+    z-index: 1000; /* 他のコンテンツより手前に表示されるように、z-indexを高く設定 */
+    /* ★ここに、background-colorやcolorに関するtransitionやhover効果は設定していません。★ */
+}
+
+.site-title {
+    font-size: 3.5em; /* タイトル（h1）の文字サイズを大きくする */
+    font-weight: 700; /* フォントの太さを太字（bold）に設定 */
+    color: #2c3e50; /* タイトルの文字色を濃い青みがかったグレーに設定 */
+    margin-bottom: 8px; /* サブタイトルとの間に下方向の余白を設定 */
+    letter-spacing: 0.05em; /* 文字と文字の間隔を少し広げて、視認性を向上させる */
+    /* ★ここに、background-colorやcolorに関するtransitionやhover効果は設定していません。★ */
+}
+
+.site-subtitle {
+    font-size: 1.3em; /* サブタイトル（p）の文字サイズを調整 */
+    color: #7f8c8d; /* サブタイトルの文字色を中間のグレーに設定 */
+    margin-top: 0; /* 上方向の余白を0にリセット（titleのmargin-bottomと合わせて調整） */
+    /* ★ここに、background-colorやcolorに関するtransitionやhover効果は設定していません。★ */
+}
+
+/* ------------------------------------ */
+/* 4. メインコンテンツのスタイル */
+/* ------------------------------------ */
+main {
+    flex-grow: 1; /* 親要素（body）の残りのスペースを全て占めるように設定（ヘッダーとフッターを除く） */
+    display: flex; /* mainをフレックスコンテナにする */
+    justify-content: center; /* main内のコンテンツを主軸（横方向）の中央に揃える */
+    align-items: center; /* main内のコンテンツを交差軸（縦方向）の中央に揃える */
+    width: 100%; /* mainの幅を親要素（body）の100%に設定 */
+    padding: 40px 20px; /* mainコンテンツ全体の上下左右の内側余白 */
+}
+
+.portfolio-section {
+    width: 100%; /* セクションの幅を親要素の100%に設定 */
+    max-width: 1200px; /* セクションの最大幅を設定し、画面が広すぎてもコンテンツが間延びしないようにする */
+    padding: 20px; /* セクションの内側余白 */
+}
+
+.portfolio-list {
+    display: flex; /* リスト（ul）をフレックスコンテナにする */
+    justify-content: center; /* リストアイテム（li）を主軸（横方向）の中央に揃える */
+    align-items: center; /* リストアイテム（li）を交差軸（縦方向）の中央に揃える */
+    padding: 0; /* リストのデフォルトのパディングをリセット */
+    margin: 0; /* リストのデフォルトのマージンをリセット */
+    flex-wrap: wrap; /* アイテムが親要素の幅を超えた場合に、次の行に折り返すように設定 */
+    gap: 30px; /* フレックスアイテム間の隙間を30pxに設定（行方向・列方向の両方） */
+}
+
+.portfolio-list li { 
+    /* li要素には直接マージンを設定する必要がなくなりました。
+       代わりに、親である .portfolio-list の gap プロパティがアイテム間の余白を管理します。 */
+}
+
+/* ------------------------------------ */
+/* 5. ボタン風ブロックのスタイル */
+/* ------------------------------------ */
+.portfolio-item-link {
+    display: block; /* aタグをブロック要素として表示し、クリック可能な領域を広げる */
+    text-decoration: none; /* リンクのデフォルトの下線を非表示にする */
+    color: inherit; /* リンクの文字色を親要素から継承する（青色にならない） */
+    cursor: pointer; /* マウスカーソルがリンクの上に乗ったときにポインター（指の形）に変更する */
+    /* このセレクタには、アニメーション（transition）やtransformは設定していません。 */
+}
+
+.item-block {
+    width: 300px; /* ブロックの幅を固定値で300pxに設定し、すべてのボタンの幅を揃える */
+    height: 150px; /* ブロックの高さを固定値で150pxに設定し、すべてのボタンの高さを揃える */
+
+    display: flex; /* ブロックをフレックスコンテナにし、内部のコンテンツを配置しやすくする */
+    justify-content: center; /* ブロック内のコンテンツを主軸（横方向）の中央に揃える */
+    align-items: center; /* ブロック内のコンテンツを交差軸（縦方向）の中央に揃える */
+    border: #333 solid 1px; /* 1pxの実線ボーダーを濃いグレーで設定 */
+    background-color: rgba(255, 255, 20, 0.562); /* 黄色の背景色（透明度56.2%） */
+    border-radius: 8px; /* 角を8pxの半径で丸くする */
+    overflow: hidden; /* コンテンツがブロックからはみ出した場合、はみ出た部分を非表示にする */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* デフォルトの影 (水平0, 垂直4px, ぼかし8px, 黒の10%透明度) */
+    text-align: center; /* ブロック内のテキストを中央揃えにする（flexと併用することでより確実に中央に） */
+    
+    /* ホバー時のアニメーション効果をここに設定 */
+    /* transform, box-shadow, background-color の変化が0.2秒かけて滑らかに実行される */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out; 
+}
+
+.portfolio-item-link .item-block { 
+    font-size: 2.2em; /* ブロック内の文字サイズを調整 */
+    font-weight: 700; /* 文字を太字に設定し、視認性を高める */
+}
+
+/* ホバー時のスタイル */
+/* .portfolio-item-link にカーソルが乗ったときに、その子要素である .item-block のスタイルを変更する */
+.portfolio-item-link:hover .item-block { 
+    transform: translateY(-5px); /* ブロックを垂直方向（Y軸）に-5px（上方向）に移動させるアニメーション */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* ホバー時に影を大きく濃くし、より浮き上がったように見せる */
+    background-color: rgba(255, 255, 50, 0.9); /* ホバー時に背景色を少し明るく、透明度を高くする */
+}
+
+/* ------------------------------------ */
+/* 6. フッターのスタイル */
+/* ------------------------------------ */
+footer {
+    width: 100%; /* フッターの幅を親要素（body）の100%に設定 */
+    padding: 20px 0; /* 内側の余白: 上下20px, 左右0px */
+    text-align: center; /* フッター内のテキストを中央揃えにする */
+    color: #aaa; /* フッターの文字色を薄いグレーに設定 */
+    font-size: 0.9em; /* フッターの文字サイズを少し小さめに設定 */
+    margin-top: auto; /* main要素がflex-growで伸びても、フッターが常に一番下に配置されるようにする */
+    background-color: #ffffff; /* フッターの背景色を白に設定 */
+    border-top: 1px solid #e0e0e0; /* 上部に1pxの薄いグレーの線を追加 */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* 上方向に影を追加 (水平0, 垂直-2px, ぼかし5px, 黒の5%透明度) */
+}
+
+/* ------------------------------------ */
+/* 7. レスポンシブデザイン (異なる画面幅への対応) */
+/* ------------------------------------ */
+
+/* 画面幅が768px以下のデバイス（タブレットやそれ以下のサイズ）に適用されるスタイル */
+@media (max-width: 768px) { 
+    .site-title {
+        font-size: 2.5em; /* タイトル文字サイズを小さくする */
+    }
+    .site-subtitle {
+        font-size: 1.1em; /* サブタイトル文字サイズを小さくする */
+    }
+    .main-header {
+        padding: 30px 15px; /* ヘッダーのパディングを調整 */
+    }
+    main {
+        padding: 30px 15px; /* メインコンテンツのパディングを調整 */
+    }
+    .portfolio-list {
+        flex-direction: column; /* リストアイテムを横並びから縦並びに変更 */
+        gap: 20px; /* 縦並びになった際のアイテム間の隙間を調整 */
+    }
+    .item-block {
+        width: 80vw; /* ブロックの幅をビューポートの幅の80%に設定 */
+        max-width: 300px; /* ただし、ブロックが大きくなりすぎないように最大幅を300pxに制限 */
+        height: auto; /* 高さを固定せず、コンテンツの高さに合わせて自動調整されるようにする */
+        padding: 2em 3em; /* ブロックの内側余白を調整 */
+    }
+    .portfolio-item-link .item-block {
+        font-size: 2em; /* ブロック内の文字サイズを調整 */
+    }
+}
+
+/* 画面幅が480px以下のデバイス（スマートフォンやそれ以下のサイズ）に適用されるスタイル */
+@media (max-width: 480px) { 
+    .main-header {
+        padding: 20px 10px; /* ヘッダーのパディングをさらに調整 */
+    }
+    .site-title {
+        font-size: 2em; /* タイトル文字サイズをさらに小さくする */
+    }
+    .site-subtitle {
+        font-size: 1em; /* サブタイトル文字サイズをさらに小さくする */
+    }
+    .item-block {
+        width: 90vw; /* ブロックの幅をビューポートの幅の90%に設定 */
+        padding: 1.5em 2em; /* ブロックの内側余白をさらに調整 */
+        min-height: 100px; /* 最小高さを設定 */
+    }
+    .portfolio-item-link .item-block {
+        font-size: 1.8em; /* ブロック内の文字サイズをさらに調整 */
+    }
+}
