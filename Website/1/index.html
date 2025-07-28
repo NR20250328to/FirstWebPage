@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+    <meta name="description" content="KAKERU MIYAICHIのポートフォリオサイト">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./assets/image/favicon.ico"> <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="style.css"> 
+  </head>
+
+  <body>
+    <header class="header">
+      <h1 class="header__site-title">
+        <a href="index.html">
+          <img class="header__logo" src="./assets/image/logo.svg" alt="Profileロゴ">
+        </a>
+      </h1>
+      <nav class="header__nav" aria-label="グローバルナビゲーション">
+        <ul class="header__nav-list">
+          <li class="header__nav-item"><a href="#about">About</a></li>
+          <li class="header__nav-item"><a href="#bicycle">Bicycle</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="mainvisual">
+        <img class="mainvisual__image" src="./assets/image/mainvisual.jpg" alt="自転車に乗る人のメインビジュアル">
+      </div>
+
+      <section id="about" class="about wrapper">
+        <h2 class="about__title section-title">About</h2>
+        <div class="about__content">
+          <img class="about__image" src="./assets/image/about.jpg" alt="KAKERU MIYAICHIのプロフィール画像">
+          <div class="about__text-block">
+            <h3 class="about__name content-title">KAKERU MIYAICHI</h3>
+            <p class="about__description">
+              テキストテキストテキストテキストテキストテキストテキスト<br>
+              テキストテキストテキストテキストテキストテキストテキスト<br>
+              テキストテキストテキストテキストテキストテキストテキスト
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="bicycle" class="bicycle wrapper">
+        <h2 class="bicycle__title section-title">Bicycle</h2>
+        <ul class="bicycle__list">
+          <li class="bicycle__item">
+            <img class="bicycle__item-image" src="./assets/image/bicycle1.jpg" alt="青い自転車">
+            <h3 class="bicycle__item-title content-title">タイトルタイトル</h3>
+            <p class="bicycle__item-text">テキストテキストテキスト</p>
+          </li>
+          <li class="bicycle__item">
+            <img class="bicycle__item-image" src="./assets/image/bicycle2.jpg" alt="坂道を登る自転車">
+            <h3 class="bicycle__item-title content-title">タイトルタイトル</h3>
+            <p class="bicycle__item-text">テキストテキストテキスト</p>
+          </li>
+          <li class="bicycle__item">
+            <img class="bicycle__item-image" src="./assets/image/bicycle3.jpg" alt="森の中の自転車道">
+            <h3 class="bicycle__item-title content-title">タイトルタイトル</h3>
+            <p class="bicycle__item-text">テキストテキストテキスト</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Profile</p>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+/* ========================================
+    1. カスタムプロパティ (CSS変数)
+======================================== */
+:root {
+  /* Colors */
+  --color-text-primary: #383e45;
+  --color-link: #24292e;
+  --color-hover: rgba(36, 41, 46, 0.7); /* ホバー時の透明度 */
+
+  /* Fonts */
+  --font-size-base: 0.9rem; /* bodyの基本フォントサイズ (16px * 0.9 = 14.4px) */
+  --font-size-small: 0.5rem; /* フッターなど (16px * 0.5 = 8px) */
+  --font-size-medium: 1rem; /* content-titleなど (16px * 1 = 16px) */
+  --font-size-large: 2rem; /* section-titleなど (16px * 2 = 32px) */
+
+  /* Spacing */
+  --spacing-section-mb: 100px; /* 各セクションの下マージン */
+  --spacing-mainvisual-mb: 80px; /* メインビジュアルの下マージン */
+  --spacing-title-mb: 60px; /* セクションタイトルの下マージン */
+  --spacing-item-gap-pc: 30px; /* PC版 横並びアイテム間のデフォルトギャップ */
+  --spacing-item-gap-sp: 20px; /* SP版 横並びアイテム間のデフォルトギャップ */
+  --spacing-small: 10px; /* 小さい余白、パディングなど */
+  --spacing-xsmall: 5px; /* さらに小さい余白 */
+
+  /* Layout */
+  --wrapper-max-width: 960px; /* コンテンツ領域の最大幅 */
+  --wrapper-padding-x: 4%; /* コンテンツ領域の左右パディング */
+  --header-height-sp: 60px; /* SP版ヘッダーの仮の高さ、mainvisualの計算に使うため */
+
+  /* Component specific */
+  --about-image-size: 100px;
+}
+
+/* ========================================
+    2. リセットCSSとベーススタイル (ress.min.cssの後に読み込む)
+    - ress.min.cssがborder-boxを設定済み
+======================================== */
+html {
+  font-size: 100%; /* 1rem = 16px を基準とする */
+}
+
+body {
+  color: var(--color-text-primary);
+  /* font-familyはプロジェクトの要件に合わせて適宜追加 */
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.6; /* 行間を適切に設定し、可読性を高める */
+  word-wrap: break-word; /* 長い単語の折り返し */
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  transition: opacity 0.3s ease; /* ホバーアニメーション */
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  max-width: 100%;
+  height: auto; /* アスペクト比を保つために重要 */
+  vertical-align: bottom; /* img要素の下に発生する余白を削除する定番ハック */
+}
+
+ul, ol {
+  list-style: none; /* リストのデフォルトスタイルをリセット */
+  padding: 0; /* デフォルトのパディングをリセット */
+  margin: 0; /* デフォルトのマージンをリセット */
+}
+
+/* ========================================
+    3. 共通クラス
+======================================== */
+.wrapper {
+  max-width: var(--wrapper-max-width);
+  margin: 0 auto var(--spacing-section-mb); /* 中央寄せとセクション間の下マージン */
+  padding: 0 var(--wrapper-padding-x); /* 左右のパディング */
+  text-align: center; /* wrapper内のテキストを中央寄せにするための指定 */
+}
+
+.section-title {
+  display: inline-block; /* border-bottomをコンテンツ幅に合わせる */
+  font-size: var(--font-size-large);
+  margin-bottom: var(--spacing-title-mb);
+  border-bottom: solid 1px var(--color-text-primary);
+  /* padding-bottom: 5px; などで線との間隔を調整しても良い */
+}
+
+.content-title {
+  font-size: var(--font-size-medium);
+  margin: var(--spacing-small) 0; /* 上下10pxの余白 */
+}
+
+/* ========================================
+    4. ヘッダー (.header)
+======================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* wrapperではないので、こちらで左右のpaddingを設定 */
+  padding: var(--spacing-small) var(--wrapper-padding-x);
+}
+
+.header__site-title {
+  width: 120px; /* ロゴの幅 */
+  line-height: 1px; /* imgタグの隙間対策 */
+}
+
+.header__site-title a {
+  display: block;
+}
+
+.header__logo {
+  max-width: 100%; /* 親の幅に合わせる */
+  height: auto; /* アスペクト比を維持 */
+}
+
+.header__nav-list {
+  display: flex;
+}
+
+.header__nav-item {
+  margin-left: var(--spacing-item-gap-pc); /* ナビアイテム間の余白 (PC用) */
+}
+
+.header__nav-item a {
+  color: var(--color-link);
+}
+
+/* ========================================
+    5. メインビジュアル (.mainvisual)
+======================================== */
+.mainvisual {
+  margin-bottom: var(--spacing-mainvisual-mb);
+  /* mainvisual自体は全幅なのでwrapperクラスは不要 */
+}
+
+.mainvisual__image {
+  width: 100%;
+  height: 600px; /* 固定高さ */
+  object-fit: cover; /* 画像が要素を覆うようにトリミング */
+}
+
+/* ========================================
+    6. Aboutセクション (.about)
+======================================== */
+.about__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-item-gap-pc); /* 画像とテキスト間のスペース (PC用) */
+  flex-wrap: wrap; /* スマホ時の折り返し準備 */
+}
+
+.about__image {
+  width: var(--about-image-size); /* 100px */
+  height: var(--about-image-size); /* 100px */
+  border-radius: 50%; /* 正円に切り抜き */
+  object-fit: cover; /* 画像が歪まないようにトリミング */
+}
+
+.about__text-block {
+  text-align: left;
+  max-width: 450px; /* テキストブロックが広がりすぎないように制御 */
+}
+
+/* ========================================
+    7. Bicycleセクション (.bicycle)
+======================================== */
+.bicycle__list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* スマホ時の折り返し準備 */
+}
+
+.bicycle__item {
+  /* calc() を使用して、正確に3分割し、gapを考慮した幅を算出 */
+  width: calc((100% - (var(--spacing-item-gap-pc) * 2)) / 3); 
+  /* flex-basis: calc((100% - (var(--spacing-item-gap-pc) * 2)) / 3); としても良い */
+}
+
+/* ========================================
+    8. フッター (.footer)
+======================================== */
+.footer {
+  font-size: var(--font-size-small); /* 0.5rem = 8px */
+  padding: var(--spacing-small) 0;
+  text-align: center;
+}
+
+/* ========================================
+    9. レスポンシブ (SP: max-width: 600px)
+======================================== */
+@media screen and (max-width: 600px) {
+
+  /* 全体的な調整 */
+  .wrapper {
+    margin-bottom: var(--spacing-item-gap-sp); /* セクション下マージンをスマホ向けに調整 */
+    padding: 0 20px; /* スマホでは固定pxのパディングにするなど調整 */
+  }
+
+  .section-title {
+    margin-bottom: var(--spacing-item-gap-sp); /* セクションタイトル下マージンをスマホ向けに調整 */
+    font-size: calc(var(--font-size-large) * 0.8); /* スマホで少し小さくする例 */
+  }
+
+  /* ヘッダー */
+  .header {
+    flex-direction: column; /* ロゴとナビを縦並びに */
+    padding: var(--spacing-small) 0; /* 左右パディングを調整 */
+  }
+
+  .header__nav-list {
+    margin-top: var(--spacing-small); /* ロゴとナビの間の余白 */
+  }
+
+  .header__nav-item {
+    margin-left: var(--spacing-xsmall); /* アイテム間のマージンをさらに狭める */
+    margin-right: var(--spacing-xsmall); /* 左右にもマージンを追加して中央寄せを支援 */
+  }
+
+  /* メインビジュアル */
+  .mainvisual {
+    margin-bottom: var(--spacing-item-gap-sp); /* 下マージンをスマホ向けに調整 */
+  }
+
+  .mainvisual__image {
+    /* スマホ版メインビジュアルの高さ。ヘッダーの高さ(約60px)を考慮 */
+    height: calc(100vh - var(--header-height-sp)); 
+  }
+
+  /* Aboutセクション */
+  .about__content {
+    flex-direction: column;
+    gap: var(--spacing-item-gap-sp); /* 画像とテキスト間の余白をスマホ用に調整 */
+  }
+
+  .about__text-block {
+    text-align: center; /* テキストを中央寄せ */
+  }
+
+  /* Bicycleセクション */
+  .bicycle__list {
+    flex-direction: column;
+    /* gap: var(--spacing-item-gap-sp); /* 縦積みの際にgapを使うことも可能 */ */
+  }
+
+  .bicycle__item {
+    width: 100%; /* 各アイテムを全幅に */
+    margin-bottom: var(--spacing-item-gap-sp); /* 縦積みになった際のアイテム間の余白 */
+  }
+
+  .bicycle__item:last-child {
+    margin-bottom: 0; /* 最後のアイテムの下マージンは不要 */
+  }
+}
